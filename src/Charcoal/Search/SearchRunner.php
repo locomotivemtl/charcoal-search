@@ -11,7 +11,7 @@ use \Psr\Log\LoggerAwareTrait;
 use \Charcoal\Factory\FactoryInterface;
 
 use \Charcoal\Search\CustomSearch;
-use \Charcoal\Search\SearchConfig;
+use \Charcoal\Search\SearchRunnerConfig;
 use \Charcoal\Search\SearchInterface;
 use \Charcoal\Search\SearchLog;
 use \Charcoal\Search\SearchRunnerInterface;
@@ -29,7 +29,7 @@ class SearchRunner implements SearchRunnerInterface, LoggerAwareInterface
     private $modelFactory;
 
     /**
-     * @var SearchConfig $searchConfig
+     * @var SearchRunnerConfig $searchConfig
      */
     private $searchConfig;
 
@@ -83,13 +83,13 @@ class SearchRunner implements SearchRunnerInterface, LoggerAwareInterface
     }
 
     /**
-     * @param array|SearchConfig $searchConfig The search options / configuration.
+     * @param array|SearchRunnerConfig $searchConfig The search options / configuration.
      * @return  SearchRunner Chainable
      */
     protected function setSearchConfig($searchConfig)
     {
-        if (!($searchConfig instanceof SearchConfig)) {
-            $searchConfig = new SearchConfig($searchConfig);
+        if (!($searchConfig instanceof SearchRunnerConfig)) {
+            $searchConfig = new SearchRunnerConfig($searchConfig);
         }
         $this->searchConfig = $searchConfig;
         return $this;
@@ -97,7 +97,7 @@ class SearchRunner implements SearchRunnerInterface, LoggerAwareInterface
 
     /**
      * Public access to the search config.
-     * @return SearchConfig
+     * @return SearchRunnerConfig
      */
     public function searchConfig()
     {

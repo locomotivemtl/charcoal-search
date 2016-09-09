@@ -7,7 +7,7 @@ use \Charcoal\Config\AbstractConfig;
 /**
  *
  */
-class SearchConfig extends AbstractConfig
+class SearchRunnerConfig extends AbstractConfig
 {
 
 }

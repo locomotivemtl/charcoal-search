@@ -9,7 +9,7 @@ use \Charcoal\Factory\GenericFactory;
 
 use \Charcoal\Model\MetadataLoader;
 
-use \Charcoal\Search\SearchConfig;
+use \Charcoal\Search\SearchRunnerConfig;
 use \Charcoal\Search\SearchRunner;
 
 use \PHPUnit_Framework_TestCase;
@@ -97,7 +97,7 @@ class SearchRunnerTest extends PHPUnit_Framework_TestCase
         $obj = $this->obj([
             'foo' => 'bar'
         ]);
-        $this->assertInstanceOf(SearchConfig::class, $obj->searchConfig());
+        $this->assertInstanceOf(SearchRunnerConfig::class, $obj->searchConfig());
         $this->assertEquals('bar', $obj->searchConfig()['foo']);
     }
 
