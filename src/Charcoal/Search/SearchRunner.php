@@ -160,7 +160,7 @@ class SearchRunner implements SearchRunnerInterface, LoggerAwareInterface
         }
 
         $log->setNumResults($numResults);
-        // $log->save();
+        $log->save();
         $this->searchLog = $log;
 
         return $this->results;

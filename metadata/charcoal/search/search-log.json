@@ -1,0 +1,68 @@
+{
+    "properties":{
+        "id":{
+            "type":"id"
+        },
+        "search_ident":{
+            "type":"string"
+        },
+        "keyword":{
+            "type":"string"
+        },
+        "num_results":{
+            "type":"integer"
+        },
+        "results":{
+            "type":"json"
+        },
+        "ts":{
+            "type":"date-time"
+        },
+        "ip":{
+            "type":"ip"
+        },
+        "lang":{
+            "type":"lang"
+        }
+    },
+
+    "sources":{
+        "default":{
+            "table":"charcoal_search_logs"
+        }
+    },
+    "default_source":"default",
+
+    "admin":{
+        "lists":{
+            "default":{
+                "properties":[
+                    "search_ident",
+                    "ts",
+                    "keyword",
+                    "num_results"
+                ],
+                "orders":[{
+                    "property":"ts",
+                    "mode":"desc"
+                }]
+            }
+        },
+        "default_list":"default",
+
+        "forms":{
+            "default":{
+
+            }
+        },
+        "default_form":"default",
+
+        "dashboards":{
+            "admin.edit":{},
+            "admin.table":{}
+        },
+        "default_create_dashboard": "admin.edit",
+        "default_edit_dashboard": "admin.edit",
+        "default_collection_dashboard": "admin.table"
+    }
+}

@@ -228,4 +228,18 @@ class SearchLog extends AbstractModel
     {
         return $this->lang;
     }
+
+    public function preSave()
+    {
+        parent::preSave();
+
+        $this->setIp(getenv('REMOTE_ADDR') ? getenv('REMOTE_ADDR') : '');
+        $this->setTs('now');
+
+        if (!isset($this->lang)) {
+            $this->setLang('');
+        }
+
+        return true;
+    }
 }
