@@ -108,7 +108,7 @@ class SearchLogTest extends PHPUnit_Framework_TestCase
         $this->obj->setTs(null);
         $this->assertNull($this->obj->ts());
 
-        $this->setExpectedException('\Error');
+        $this->setExpectedException('\Exception');
         $this->obj->setTs('invalid date');
     }
 

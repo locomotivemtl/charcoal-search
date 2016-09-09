@@ -179,23 +179,6 @@ class SearchRunnerTest extends PHPUnit_Framework_TestCase
         $obj->search('foo');
     }
 
-        /**
-         *
-         */
-    public function testSearchCustomInvalidCallbackThrowsException()
-    {
-        $obj = $this->obj([
-            'searches'   => [
-                'foo'       => [
-                    'search_type'   => 'custom',
-                    'callback'      => '_invalid_callback'
-                ]
-            ]
-        ]);
-        $this->setExpectedException('\Error');
-        $obj->search('foo');
-    }
-
     /**
      *
      */
