@@ -109,7 +109,7 @@ class SearchLogTest extends PHPUnit_Framework_TestCase
         $this->assertNull($this->obj->ts());
 
         $this->setExpectedException('\Error');
-        $this->setTs('invalid date');
+        $this->obj->setTs('invalid date');
     }
 
     public function testSetIp()
