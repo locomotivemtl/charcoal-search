@@ -16,8 +16,8 @@
 	</testsuites>
     <filter>
     <whitelist>
-        <directory suffix=".php">../tests/Charcoal/Admin</directory>
-        <directory suffix=".php">../tests/Charcoal/Search</directory>
+        <directory suffix=".php">../src/Charcoal/Admin</directory>
+        <directory suffix=".php">../src/Charcoal/Search</directory>
     </whitelist>
     </filter>
 	<logging>

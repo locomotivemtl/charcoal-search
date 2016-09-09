@@ -17,7 +17,7 @@ use \PHPUnit_Framework_TestCase;
 /**
  *
  */
-class SearchRunnerTest extends \PHPUnit_Framework_TestCase
+class SearchRunnerTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @var \Charcoal\Factory\FactoryInterface $modelFactory
@@ -25,6 +25,7 @@ class SearchRunnerTest extends \PHPUnit_Framework_TestCase
     private $modelFactory;
 
     /**
+     * An instance of the SearchRunnerh object under test
      * @var SearchRunner $obj
      */
     private $obj;
@@ -35,7 +36,6 @@ class SearchRunnerTest extends \PHPUnit_Framework_TestCase
     private function modelFactory()
     {
         if (!$this->modelFactory) {
-            $container = $GLOBALS['container'];
             $metadataLoader = new MetadataLoader([
                 'logger' => new NullLogger(),
                 'base_path' => __DIR__,
@@ -56,13 +56,15 @@ class SearchRunnerTest extends \PHPUnit_Framework_TestCase
     /**
      * @return SearchRunner
      */
-    private function obj($searchConfig=[])
+    private function obj($searchConfig = [])
     {
         $this->obj = new SearchRunner([
             'search_config' => $searchConfig,
             'model_factory' => $this->modelFactory(),
             'logger'        => new NullLogger()
         ]);
+        // Do not save logs in testing.
+        $this->obj->logDisabled = true;
         return $this->obj;
     }
 
@@ -178,8 +180,8 @@ class SearchRunnerTest extends \PHPUnit_Framework_TestCase
     }
 
         /**
-     *
-     */
+         *
+         */
     public function testSearchCustomInvalidCallbackThrowsException()
     {
         $obj = $this->obj([
