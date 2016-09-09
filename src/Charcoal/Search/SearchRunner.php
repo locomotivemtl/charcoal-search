@@ -42,6 +42,11 @@ class SearchRunner implements SearchRunnerInterface, LoggerAwareInterface
     private $results;
 
     /**
+     * @var boolean $logDisabled
+     */
+    public $logDisabled = false;
+
+    /**
      * @param array $data The constructor options.
      * @return void
      */
@@ -160,7 +165,9 @@ class SearchRunner implements SearchRunnerInterface, LoggerAwareInterface
         }
 
         $log->setNumResults($numResults);
-        $log->save();
+        if ($this->logDisabled === false) {
+            $log->save();
+        }
         $this->searchLog = $log;
 
         return $this->results;
