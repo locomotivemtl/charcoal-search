@@ -16,18 +16,14 @@ use \Foo\Bar\CustomObject;
 $searchRunner = new SearchRunner([
 	'search_config' => [
 		'ident' 		=> 'my-custom-search',
-		'objects'		=> [
-			'foo' 	=> [
-				'search_type' 	=> 'custom',
-				'callback' 		=> function($keyword) {
-						// Do search here, return array of objects.
-						return [];
-				}
-			],
-			'bar'   => [
-				'search_type' 	=> 'model',
-				'obj_type'			=> new CustomObject()
-			]
+		'searches'		=> [
+			'foo' 	=> new CustomSearch([
+                'logger' => $logger
+                'callback' => function($keyword) {
+
+                }
+            ])
+
 		]
 	],
 	'model_factory'		=> $modelFactory,
@@ -55,18 +51,18 @@ The `SearchRunner` is instanciated with a single parameter, which contains the c
 | **search_config** | `array` | A [search config](#search-config) object
 
 
-# Search config
+## Search config
 
 The search config object contains the search ident as well as the various searches to run on objects.
 
 | Ident     | Type | Description |
 | --------- | ---- | ----------- |
 | **ident** | `string` | 
-| **objects** | `array` | The various searches to perform.
+| **searches** | `array` | The various searches to perform.
 
 # Search types
 
-Available search types, which are defined in the search config's objects:
+Available search types, which are defined in the search config's **searches**:
 
 - `custom`
 - `table` (todo)

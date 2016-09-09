@@ -71,7 +71,7 @@ class SearchRunnerTest extends PHPUnit_Framework_TestCase
     /**
      * @return array
      */
-    private function defaultSearchObjects()
+    private function defaultSearches()
     {
         return [
             'foo' => [
@@ -139,7 +139,7 @@ class SearchRunnerTest extends PHPUnit_Framework_TestCase
     public function testSearchWithoutSearchTypeThrowsException()
     {
         $obj = $this->obj([
-            'objects' => [
+            'searches' => [
                 'foo'   => []
             ]
         ]);
@@ -153,7 +153,7 @@ class SearchRunnerTest extends PHPUnit_Framework_TestCase
     public function testSarchInvalidSearchTypeThrowsException()
     {
         $obj = $this->obj([
-            'objects' => [
+            'searches' => [
                 'foo'   => [
                     'search_type' => '_invalid'
                 ]
@@ -169,7 +169,7 @@ class SearchRunnerTest extends PHPUnit_Framework_TestCase
     public function testSearchCustomWithoutCallbackThrowsException()
     {
         $obj = $this->obj([
-            'objects'   =>[
+            'searches'   =>[
                 'foo'       => [
                     'search_type' => 'custom'
                 ]
@@ -185,14 +185,14 @@ class SearchRunnerTest extends PHPUnit_Framework_TestCase
     public function testSearchCustomInvalidCallbackThrowsException()
     {
         $obj = $this->obj([
-            'objects'   => [
+            'searches'   => [
                 'foo'       => [
                     'search_type'   => 'custom',
                     'callback'      => '_invalid_callback'
                 ]
             ]
         ]);
-        $this->setExpectedException('\InvalidArgumentException');
+        $this->setExpectedException('\Error');
         $obj->search('foo');
     }
 
@@ -202,7 +202,7 @@ class SearchRunnerTest extends PHPUnit_Framework_TestCase
     public function testSearchCustom()
     {
         $obj = $this->obj([
-            'objects'   => $this->defaultSearchObjects()
+            'searches'   => $this->defaultSearches()
         ]);
 
         $expected = [
@@ -223,7 +223,7 @@ class SearchRunnerTest extends PHPUnit_Framework_TestCase
     {
         $obj = $this->obj([
             'ident'     => 'foobar',
-            'objects'   => $this->defaultSearchObjects()
+            'searches'   => $this->defaultSearches()
         ]);
 
         $res = $obj->search('foo');

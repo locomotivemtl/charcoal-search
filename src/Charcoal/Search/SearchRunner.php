@@ -10,7 +10,9 @@ use \Psr\Log\LoggerAwareTrait;
 
 use \Charcoal\Factory\FactoryInterface;
 
+use \Charcoal\Search\CustomSearch;
 use \Charcoal\Search\SearchConfig;
+use \Charcoal\Search\SearchInterface;
 use \Charcoal\Search\SearchLog;
 use \Charcoal\Search\SearchRunnerInterface;
 
@@ -143,109 +145,51 @@ class SearchRunner implements SearchRunnerInterface, LoggerAwareInterface
 
         $searchConfig = $this->searchConfig();
 
-        $log = $this->modelFactory()->create(SearchLog::class);
-        $log->setData([
-            'search_ident'  => isset($searchConfig['ident']) ? $searchConfig['ident'] : '',
-            'keyword'       => $keyword
-        ]);
-
-        if (!isset($searchConfig['objects'])) {
+        if (!isset($searchConfig['searches'])) {
             throw new InvalidArgumentException(
-                'No objects defined in search config.'
+                'No searches defined in search config.'
             );
         }
 
         $numResults = 0;
-        $searchObjects = $searchConfig['objects'];
+        $searchObjects = $searchConfig['searches'];
 
         foreach ($searchObjects as $searchIdent => $searchObj) {
-            $results = $this->runSearch($keyword, $searchObj);
+            if ($searchObj instanceof SearchInterface) {
+                // Run search from Search object
+                $results = $searchObj->search($keyword);
+            } else {
+                $searchOptions = array_merge($searchObj, ['logger'=>$this->logger]);
+                $search = new CustomSearch($searchOptions);
+                $results =  $search->search($keyword);
+            }
             $this->results[$searchIdent] = $results;
             $numResults += count($results);
         }
 
-        $log->setNumResults($numResults);
-        if ($this->logDisabled === false) {
-            $log->save();
-        }
-        $this->searchLog = $log;
+        $this->searchLog = $this->createLog([
+            'search_ident'  => isset($searchConfig['ident']) ? $searchConfig['ident'] : '',
+            'keyword'       => $keyword,
+            'num_results'   => $numResults,
+            'results'       => $this->results
+        ]);
 
         return $this->results;
     }
 
     /**
-     * @param string $keyword       The searched keyword.
-     * @param array  $searchOptions The search options.
-     * @throws InvalidArgumentException If the search type is undefined or invalid.
-     * @return array The results.
+     * @param array $logData Log data.
+     * @return SearchLog
      */
-    final private function runSearch($keyword, array $searchOptions)
+    private function createLog(array $logData)
     {
-        if (!isset($searchOptions['search_type'])) {
-            throw new InvalidArgumentException(
-                'Invalid search options. Must have a search type defined.'
-            );
-        }
-        $searchType = $searchOptions['search_type'];
+        $log = $this->modelFactory()->create(SearchLog::class);
+        $log->setData($logData);
 
-        if ($searchType === 'custom') {
-            return $this->runCustomSearch($keyword, $searchOptions);
-        } elseif ($searchType === 'table') {
-            return $this->runTableSearch($keyword, $searchOptions);
-        } elseif ($searchType == 'model') {
-            return $this->runModelSearch($keyword, $searchOptions);
-        } else {
-            throw new InvalidArgumentException(
-                'Invalid search options. Search type can be "custom", "table" or "model".'
-            );
-        }
-    }
-
-    /**
-     * @param string $keyword       The searched keyword.
-     * @param array  $searchOptions The search options.
-     * @throws InvalidArgumentException If the callback search option is not defined.
-     * @return array The results.
-     */
-    final private function runCustomSearch($keyword, array $searchOptions)
-    {
-        if (!isset($searchOptions['callback'])) {
-            throw new InvalidArgumentException(
-                'Invalid custom search: no callback defined'
-            );
+        if ($this->logDisabled === false) {
+            $log->save();
         }
 
-        $callback = $searchOptions['callback'];
-        if (is_callable($callback)) {
-            return $callback($keyword);
-        } elseif (is_callable([$this, $callback])) {
-            return $this->{$callback}($keyword);
-        } else {
-            throw new InvalidArgumentException(
-                'Invalid custom search: callback method can not be called.'
-            );
-        }
-    }
-
-    /**
-     * @param string $keyword       The searched keyword.
-     * @param array  $searchOptions The search options.
-     * @return array The results.
-     */
-    final private function runTableSearch($keyword, array $searchOptions)
-    {
-        // Not implemented.
-        return [];
-    }
-
-    /**
-     * @param string $keyword       The searched keyword.
-     * @param array  $searchOptions The search options.
-     * @return array The results.
-     */
-    final private function runModelSearch($keyword, array $searchOptions)
-    {
-        // Not implemented.
-        return [];
+        return $log;
     }
 }
