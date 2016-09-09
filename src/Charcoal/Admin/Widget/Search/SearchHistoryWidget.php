@@ -7,7 +7,7 @@ use \Charcoal\Admin\AdminWidget;
 /**
  *
  */
-class searchHistoryWidget extends AdminWidget
+class SearchHistoryWidget extends AdminWidget
 {
 
 }

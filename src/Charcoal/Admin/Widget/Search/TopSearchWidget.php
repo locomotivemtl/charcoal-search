@@ -4,6 +4,7 @@ namespace Charcoal\Admin\Search;
 
 use \DateTime;
 use \DateTimeInterface;
+use \InvalidArgumentException;
 
 use \Charcoal\Admin\AdminWidget;
 
@@ -24,6 +25,7 @@ class TopSearchWidget extends AdminWidget
 
     /**
      * @param string|DateTimeInterface|null $date The starting date-time.
+     * @throws InvalidArgumentException If the date format is not valid.
      * @return TopSearchWidget Chainable
      */
     public function setStartDate($date)
@@ -57,6 +59,7 @@ class TopSearchWidget extends AdminWidget
 
     /**
      * @param string|DateTimeInterface|null $date The ending date-time.
+     * @throws InvalidArgumentException If the date format is not valid.
      * @return TopSearchWidget Chainable
      */
     public function setEndDate($date)
