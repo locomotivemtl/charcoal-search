@@ -63,6 +63,12 @@ class SearchLog extends AbstractModel
     private $lang;
 
     /**
+     * The search origin; an identifier representing where the search was executed from.
+     * @var string $origin
+     */
+    private $origin;
+
+    /**
      * @param string $ident The search identifier.
      * @throws InvalidArgumentException If the search ident is not a string.
      * @return SearchLog Chainable
@@ -95,7 +101,7 @@ class SearchLog extends AbstractModel
     {
         if (!is_string($kw)) {
             throw new InvalidArgumentException(
-                'Keyword '
+                'Keyword must be a string'
             );
         }
         $this->keyword = $kw;
@@ -229,6 +235,34 @@ class SearchLog extends AbstractModel
         return $this->lang;
     }
 
+    /**
+     * @param string $origin The origin is an identifier representing where the search was executed.
+     * @throws InvalidArgumentException If the origin is not a string.
+     * @return SearchLog Chainable
+     */
+    public function setOrigin($origin)
+    {
+        if (!is_string($origin)) {
+            throw new InvalidArgumentException(
+                'Origin must be a string'
+            );
+        }
+        $this->origin = $origin;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function origin()
+    {
+
+        return $this->origin;
+    }
+
+    /**
+     * @return boolean
+     */
     public function preSave()
     {
         parent::preSave();

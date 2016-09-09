@@ -23,6 +23,9 @@
         },
         "lang":{
             "type":"lang"
+        },
+        "origin":{
+            "type":"string"
         }
     },
 
