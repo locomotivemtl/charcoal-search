@@ -10,7 +10,7 @@ use \Psr\Log\LoggerAwareTrait;
 /**
  *
  */
-abstract class AbstractSearch implements LoggerAwareInterface
+abstract class AbstractSearch implements SearchInterface, LoggerAwareInterface
 {
     use LoggerAwareTrait;
 
