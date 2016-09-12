@@ -1,0 +1,28 @@
+{{!--
+`charcoal/admin/widget/search/top-search`
+--}}
+
+{{#hasTopSearches}}
+<div class="o-section">
+    Recherches plus populaires
+
+    <table class="table table-bordered table-hover">
+        <thead>
+        <tr>
+            <th>Mot-clé</th>
+            <th>Nombre de recherches</th>
+            <th>Nombre de résultats</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#topSearches}}
+        <tr>
+            <td>{{keyword}}</td>
+            <td>{{num_searches}}</td>
+            <td>{{num_results}}</td>
+        </tr>
+        {{/topSearches}}
+        </tbody>
+    </table>
+</div>
+{{/hasTopSearches}}

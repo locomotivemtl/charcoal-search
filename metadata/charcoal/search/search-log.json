@@ -62,7 +62,35 @@
 
         "dashboards":{
             "admin.edit":{},
-            "admin.table":{}
+            "admin.table":{
+                "title": {
+                    "fr": "Recherches",
+                    "en": "Searches"
+                },
+                "layout": {
+                    "structure": [
+                        { "columns": [ 1, 1 ] },
+                        { "columns": [ 1 ] }
+                    ]
+                },
+                "widgets": {
+                    "top": {
+                        "type": "charcoal/admin/widget/search/top-search",
+                        "priority":1
+                    },
+                    "no-results": {
+                        "type": "charcoal/admin/widget/search/no-results-search",
+                        "priority":2
+                    },
+                    "table": {
+                        "type": "charcoal/admin/widget/table",
+                        "collection_ident": "default",
+                        "obj_type": "charcoal/search/search-log",
+                        "priority":3
+                    }
+
+                }
+            }
         },
         "default_create_dashboard": "admin.edit",
         "default_edit_dashboard": "admin.edit",

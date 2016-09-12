@@ -16,7 +16,7 @@ use \Charcoal\Search\SearchLog;
 /**
  * Search widget to show the latest searched-for terms and their results.
  */
-class TopSearchWidget extends AdminWidget
+class NoResultsSearchWidget extends AdminWidget
 {
     /**
      * @var DateTimeInterface $startDate
@@ -29,7 +29,7 @@ class TopSearchWidget extends AdminWidget
     private $endDate;
 
     private $collectionLoader;
-    private $topSearches;
+    private $noResultsSearches;
 
     public function setDependencies(Container $container)
     {
@@ -107,22 +107,22 @@ class TopSearchWidget extends AdminWidget
         return $this->endDate;
     }
 
-    public function topSearches()
+    public function noResultsSearches()
     {
-        if ($this->topSearches === null) {
-            $this->topSearches = $this->loadTopSearches();
+        if ($this->noResultsSearches === null) {
+            $this->noResultsSearches = $this->loadNoResultsSearches();
         }
 
-        return $this->topSearches;
+        return $this->noResultsSearches;
     }
 
-    public function hasTopSearches()
+    public function hasNoResultsSearches()
     {
-        $topSearches = $this->topSearches();
-        return (count($topSearches) > 0);
+        $noResultsSearches = $this->noResultsSearches();
+        return (count($noResultsSearches) > 0);
     }
 
-    public function loadTopSearches()
+    public function loadNoResultsSearches()
     {
         $proto = $this->modelFactory()->create(SearchLog::class);
         $source = $proto->source();
@@ -136,6 +136,8 @@ class TopSearchWidget extends AdminWidget
         FROM
             `'.$table.'`
         WHERE
+            `num_results` = 0
+        AND
             `ts` > :start
         AND
             `ts` <= :end
