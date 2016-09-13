@@ -7,7 +7,7 @@
             "type":"string"
         },
         "keyword":{
-            "type":"string"
+            "type":"text"
         },
         "num_results":{
             "type":"integer"
