@@ -21,11 +21,38 @@ abstract class AbstractSearch implements SearchInterface, LoggerAwareInterface
     private $results;
 
     /**
+     * [$modelFactory description]
+     * @var [type]
+     */
+    protected $modelFactory;
+
+
+    /**
      * @param array $data Class options and dependencies.
      */
     public function __construct(array $data)
     {
         $this->setLogger($data['logger']);
+        $this->setModelFactory($data['modelFactory']);
+    }
+
+    /**
+     * [setModelFactory description]
+     * @param [type] $factory [description]
+     */
+    public function setModelFactory($factory)
+    {
+        $this->modelFactory = $factory;
+        return $this;
+    }
+
+    /**
+     * [modelFactory description]
+     * @return [type] [description]
+     */
+    public function modelFactory()
+    {
+        return $this->modelFactory;
     }
 
     /**
