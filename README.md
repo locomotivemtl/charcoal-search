@@ -14,20 +14,19 @@ use \Charcoal\Search\SearchRunner;
 use \Foo\Bar\CustomObject;
 
 $searchRunner = new SearchRunner([
-	'search_config' => [
-		'ident' 		=> 'my-custom-search',
-		'searches'		=> [
-			'foo' 	=> new CustomSearch([
-                'logger' => $logger
+    'search_config' => [
+        'ident'    => 'my-custom-search',
+        'searches' => [
+            'foo'  => new CustomSearch([
+                'logger'   => $logger
                 'callback' => function($keyword) {
 
                 }
             ])
-
-		]
-	],
-	'model_factory'		=> $modelFactory,
-	'logger'			=> $logger
+        ]
+    ],
+    'model_factory' => $modelFactory,
+    'logger'        => $logger
 ]);
 
 // The results are an array like `['foo'=>[...], 'bar'=>[...]]`
@@ -64,9 +63,9 @@ The search config object contains the search ident as well as the various search
 
 Available search types, which are defined in the search config's **searches**:
 
-- `custom`
-- `table` (todo)
-- `model` (todo)
+-   `custom`
+-   `table` (todo)
+-   `model` (todo)
 
 ## Custom search
 

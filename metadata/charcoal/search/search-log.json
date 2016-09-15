@@ -1,94 +1,97 @@
 {
-    "properties":{
-        "id":{
-            "type":"id"
+    "properties": {
+        "id": {
+            "type": "id"
         },
-        "search_ident":{
-            "type":"string"
+        "search_ident": {
+            "type": "string"
         },
-        "keyword":{
-            "type":"text"
+        "keyword": {
+            "type": "text"
         },
-        "num_results":{
-            "type":"integer"
+        "num_results": {
+            "type": "integer"
         },
-        "results":{
-            "type":"json"
+        "results": {
+            "type": "json"
         },
-        "ts":{
-            "type":"date-time"
+        "ts": {
+            "type": "date-time"
         },
-        "ip":{
-            "type":"ip"
+        "ip": {
+            "type": "ip"
         },
-        "lang":{
-            "type":"lang"
+        "lang": {
+            "type": "lang"
         },
-        "origin":{
-            "type":"string"
+        "origin": {
+            "type": "string"
         }
     },
 
-    "sources":{
-        "default":{
-            "table":"charcoal_search_logs"
+    "sources": {
+        "default": {
+            "table": "charcoal_search_logs"
         }
     },
-    "default_source":"default",
+    "default_source": "default",
 
-    "admin":{
-        "lists":{
-            "default":{
-                "properties":[
+    "admin": {
+        "lists": {
+            "default": {
+                "properties": [
                     "search_ident",
                     "ts",
                     "keyword",
                     "num_results"
                 ],
-                "orders":[{
-                    "property":"ts",
-                    "mode":"desc"
-                }]
+                "orders": [
+                    {
+                        "property": "ts",
+                        "mode": "desc"
+                    }
+                ]
             }
         },
-        "default_list":"default",
+        "default_list": "default",
 
-        "forms":{
-            "default":{
-
-            }
+        "forms": {
+            "default": {}
         },
-        "default_form":"default",
+        "default_form": "default",
 
-        "dashboards":{
-            "admin.edit":{},
-            "admin.table":{
+        "dashboards": {
+            "admin.edit": {},
+            "admin.table": {
                 "title": {
                     "fr": "Recherches",
                     "en": "Searches"
                 },
                 "layout": {
                     "structure": [
-                        { "columns": [ 1, 1 ] },
-                        { "columns": [ 1 ] }
+                        {
+                            "columns": [ 1, 1 ]
+                        },
+                        {
+                            "columns": [ 1 ]
+                        }
                     ]
                 },
                 "widgets": {
                     "top": {
                         "type": "charcoal/admin/widget/search/top-search",
-                        "priority":1
+                        "priority": 1
                     },
                     "no-results": {
                         "type": "charcoal/admin/widget/search/no-results-search",
-                        "priority":2
+                        "priority": 2
                     },
                     "table": {
                         "type": "charcoal/admin/widget/table",
                         "collection_ident": "default",
                         "obj_type": "charcoal/search/search-log",
-                        "priority":3
+                        "priority": 3
                     }
-
                 }
             }
         },
