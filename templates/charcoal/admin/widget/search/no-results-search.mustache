@@ -1,28 +1,32 @@
 {{!--
-`charcoal/admin/widget/search/no-results-search`
---}}
+    Search History Widget \ Searches Without Results
+    ================================================
 
-{{#hasNoResultsSearches}}
+    @used-by `charcoal/admin/widget/search/no-results-search`
+--}}
+{{# hasSearchHistory }}
 <div class="o-section">
-    Recherches sans résultats
+    <header class="o-header">
+        <h2>Recherches sans résultats</h2>
+    </header>
 
     <table class="table table-bordered table-hover">
         <thead>
-        <tr>
-            <th>Mot-clé</th>
-            <th>Nombre de recherches</th>
-            <th>Nombre de résultats</th>
-        </tr>
+            <tr>
+                <th>Mot-clé</th>
+                <th>Nombre de recherches</th>
+                <th>Nombre de résultats</th>
+            </tr>
         </thead>
         <tbody>
-        {{#noResultsSearches}}
-        <tr>
-            <td>{{keyword}}</td>
-            <td>{{num_searches}}</td>
-            <td>{{num_results}}</td>
-        </tr>
-        {{/noResultsSearches}}
+        {{# searchHistory }}
+            <tr>
+                <td>{{keyword}}</td>
+                <td>{{num_searches}}</td>
+                <td>{{num_results}}</td>
+            </tr>
+        {{/ searchHistory }}
         </tbody>
     </table>
 </div>
-{{/hasNoResultsSearches}}
+{{/ hasSearchHistory }}

@@ -7,62 +7,86 @@ use \RuntimeException;
 use \Psr\Log\LoggerAwareInterface;
 use \Psr\Log\LoggerAwareTrait;
 
+use \Charcoal\Factory\FactoryInterface;
+
 /**
+ * A Basic Search Request
  *
+ * Abstract implementation of {@see \Charcoal\Search\SearchInterface}.
  */
-abstract class AbstractSearch implements SearchInterface, LoggerAwareInterface
+abstract class AbstractSearch implements
+    SearchInterface,
+    LoggerAwareInterface
 {
     use LoggerAwareTrait;
 
     /**
      * The (raw) search results.
-     * @var array $results
+     *
+     * @var array
      */
     private $results;
 
     /**
-     * [$modelFactory description]
-     * @var [type]
+     * Store the factory instance for the current class.
+     *
+     * @var FactoryInterface
      */
     protected $modelFactory;
 
-
     /**
-     * @param array $data Class options and dependencies.
+     * Return a new search object.
+     *
+     * @param array|\ArrayAccess $data The class options and dependencies.
      */
-    public function __construct(array $data)
+    public function __construct($data)
     {
         $this->setLogger($data['logger']);
-        $this->setModelFactory($data['modelFactory']);
+        $this->setModelFactory($data['model_factory']);
     }
 
     /**
-     * [setModelFactory description]
-     * @param [type] $factory [description]
+     * Set an object model factory.
+     *
+     * @param FactoryInterface $factory The model factory, to create objects.
+     * @return self
      */
-    public function setModelFactory($factory)
+    protected function setModelFactory(FactoryInterface $factory)
     {
         $this->modelFactory = $factory;
+
         return $this;
     }
 
     /**
-     * [modelFactory description]
-     * @return [type] [description]
+     * Retrieve the object model factory.
+     *
+     * @throws RuntimeException If the model factory was not previously set.
+     * @return FactoryInterface
      */
     public function modelFactory()
     {
+        if (!isset($this->modelFactory)) {
+            throw new RuntimeException(
+                sprintf('Model Factory is not defined for "%s"', get_class($this))
+            );
+        }
+
         return $this->modelFactory;
     }
 
     /**
+     * Process the search query.
+     *
      * @param string $keyword The searched-for keyword.
      * @return array
      */
     abstract public function search($keyword);
 
     /**
-     * A search is always callable (alias to the "search" method).
+     * Alias of {@see self::search()}.
+     *
+     * A search is always callable.
      *
      * @param string $keyword The searched-for keyword.
      * @return array The results.
@@ -73,6 +97,8 @@ abstract class AbstractSearch implements SearchInterface, LoggerAwareInterface
     }
 
     /**
+     * Retrieve the results from the latest search.
+     *
      * @param string $resultType The type of results to search. Can be only "raw" for now.
      * @throws RuntimeException If this method is called before a search was executed.
      * @return array The results from the last search operation.
@@ -91,6 +117,8 @@ abstract class AbstractSearch implements SearchInterface, LoggerAwareInterface
     }
 
     /**
+     * Set the results from a search.
+     *
      * @param array $results The (raw) search results.
      * @return void
      */

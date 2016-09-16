@@ -242,12 +242,14 @@ class SearchLog extends AbstractModel
      */
     public function setOrigin($origin)
     {
-        if (!is_string($origin)) {
+        if (!is_string($origin) && $origin !== null) {
             throw new InvalidArgumentException(
                 'Origin must be a string'
             );
         }
+
         $this->origin = $origin;
+
         return $this;
     }
 
@@ -256,7 +258,6 @@ class SearchLog extends AbstractModel
      */
     public function origin()
     {
-
         return $this->origin;
     }
 

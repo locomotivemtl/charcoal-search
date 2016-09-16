@@ -159,7 +159,10 @@ class SearchRunner implements SearchRunnerInterface, LoggerAwareInterface
                 // Run search from Search object
                 $results = $searchObj->search($keyword);
             } else {
-                $searchOptions = array_merge($searchObj, ['logger'=>$this->logger]);
+                $searchOptions = array_merge($searchObj, [
+                    'logger' => $this->logger,
+                    'model_factory' => $this->modelFactory()
+                ]);
                 $search = new CustomSearch($searchOptions);
                 $results =  $search->search($keyword);
             }
