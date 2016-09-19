@@ -119,6 +119,20 @@ class SearchLogTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('127.0.0.1', $this->obj->ip());
     }
 
+    public function testSetSessionId()
+    {
+        $this->assertNull($this->obj->sessionId());
+        $ret = $this->obj->setSessionId('foobar');
+        $this->assertSame($ret, $this->obj);
+        $this->assertEquals('foobar', $this->obj->sessionId());
+
+        $this->obj->setSessionId(null);
+        $this->assertNull($this->obj->sessionId());
+
+        $this->setExpectedException('\InvalidArgumentException');
+        $this->obj->setSessionId(false);
+    }
+
     public function testSetLang()
     {
         $ret = $this->obj->setLang('fr');

@@ -218,6 +218,34 @@ class SearchLog extends AbstractModel
     }
 
     /**
+     * @param string $sessionId The session identifier. Typically, `session_id()`.
+     * @throws InvalidArgumentException If the session id is not a string.
+     * @return SearchLog Chainable
+     */
+    public function setSessionId($sessionId)
+    {
+        if ($sessionId === null) {
+            $this->sessionId = null;
+            return $this;
+        }
+        if (!is_string($sessionId)) {
+            throw new InvalidArgumentException(
+                'Can not set search log\'s session Id:  must be a string.'
+            );
+        }
+        $this->sessionId = $sessionId;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function sessionId()
+    {
+        return $this->sessionId;
+    }
+
+    /**
      * @param string $lang The language code.
      * @return SearchLog Chainable
      */
@@ -270,6 +298,9 @@ class SearchLog extends AbstractModel
 
         $this->setIp(getenv('REMOTE_ADDR') ? getenv('REMOTE_ADDR') : '');
         $this->setTs('now');
+        if (session_id()) {
+            $this->setSessionId(session_id());
+        }
 
         if (!isset($this->lang)) {
             $this->setLang('');
