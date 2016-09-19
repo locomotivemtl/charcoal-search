@@ -6,8 +6,6 @@ use \DateTime;
 use \DateTimeInterface;
 use \InvalidArgumentException;
 
-use \PDO;
-
 use \Pimple\Container;
 
 use \Charcoal\Admin\AdminWidget;
@@ -56,12 +54,6 @@ abstract class AbstractSearchHistoryWidget extends AdminWidget
      */
     private $searchHistory;
 
-    /**
-     * Store the collection loader for the current class.
-     *
-     * @var CollectionLoader
-     */
-    private $collectionLoader;
 
     /**
      * Inject dependencies from a DI Container.
@@ -72,8 +64,6 @@ abstract class AbstractSearchHistoryWidget extends AdminWidget
     public function setDependencies(Container $container)
     {
         parent::setDependencies($container);
-
-        $this->collectionLoader = $container['model/collection/loader'];
     }
 
     /**
@@ -113,6 +103,7 @@ abstract class AbstractSearchHistoryWidget extends AdminWidget
     public function startDate()
     {
         if ($this->startDate === null) {
+            // Force default value.
             $this->setStartDate(null);
         }
 
