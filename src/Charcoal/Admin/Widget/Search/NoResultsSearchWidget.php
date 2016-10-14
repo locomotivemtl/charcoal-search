@@ -26,7 +26,7 @@ class NoResultsSearchWidget extends AbstractSearchHistoryWidget
         SELECT
             `keyword`,
             COUNT(`keyword`) as num_searches,
-            SUM(`num_results`) as num_results
+            num_results
         FROM
             `'.$table.'`
         WHERE

@@ -135,7 +135,11 @@
                         "type": "charcoal/admin/widget/table",
                         "collection_ident": "default",
                         "obj_type": "charcoal/search/search-log",
-                        "priority": 3
+                        "priority": 3,
+                        "collection_config":{
+                            "page":1,
+                            "num_per_page":40
+                        }
                     }
                 }
             }

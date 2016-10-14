@@ -26,7 +26,7 @@ class TopSearchWidget extends AbstractSearchHistoryWidget
         SELECT
             `keyword`,
             COUNT(`keyword`) as num_searches,
-            SUM(`num_results`) as num_results
+            num_results
         FROM
             `'.$table.'`
         WHERE
@@ -36,7 +36,8 @@ class TopSearchWidget extends AbstractSearchHistoryWidget
         GROUP BY
             `keyword`
         ORDER BY
-            num_searches DESC
+            num_searches DESC,
+            num_results DESC
         LIMIT
             20
         ';
