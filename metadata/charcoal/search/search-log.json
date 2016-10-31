@@ -82,6 +82,26 @@
     "default_source": "default",
 
     "admin": {
+        "export":{
+            "default":{
+                "properties":[
+                    "search_ident",
+                    "ts",
+                    "keyword",
+                    "num_results"
+                ],
+                "orders":[{
+                    "property":"ts",
+                    "mode":"desc"
+                }],
+                "exporter_options":{
+                    "convert_br_to_newlines":true,
+                    "strip_tags":true,
+                    "filename":"search-logs.csv"
+                }
+            }
+        },
+        "default_export":"default",
         "lists": {
             "default": {
                 "properties": [
@@ -95,7 +115,13 @@
                         "property": "ts",
                         "mode": "desc"
                     }
-                ]
+                ],
+                "list_actions":{
+                    "export":{
+                        "url":"object/export?obj_type=charcoal/search/search-log",
+                        "label":"Export"
+                    }
+                }
             }
         },
         "default_list": "default",
@@ -137,8 +163,20 @@
                         "obj_type": "charcoal/search/search-log",
                         "priority": 3,
                         "collection_config":{
+                            "orders": [
+                                {
+                                    "property": "ts",
+                                    "mode": "desc"
+                                }
+                            ],
                             "page":1,
-                            "num_per_page":40
+                            "num_per_page":40,
+                            "list_actions":{
+                                "export":{
+                                    "url":"object/export?obj_type=charcoal/search/search-log",
+                                    "label":"Export"
+                                }
+                            }
                         }
                     }
                 }

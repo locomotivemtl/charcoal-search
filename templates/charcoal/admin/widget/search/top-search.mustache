@@ -7,15 +7,16 @@
 {{# hasSearchHistory }}
 <div class="o-section">
     <header class="o-header">
-        <h2>Recherches plus populaires</h2>
+        <h2>{{#_t}}Recherches plus populaires{{/_t}}</h2>
     </header>
 
     <table class="table table-bordered table-hover">
         <thead>
             <tr>
-                <th>Mot-clé</th>
-                <th>Nombre de recherches</th>
-                <th>Nombre de résultats</th>
+                <th>{{#_t}}Mot-clé{{/_t}}</th>
+                <th>{{#_t}}Nombre de recherches{{/_t}}</th>
+                <th>{{#_t}}Nombre de résultats{{/_t}}</th>
+                <th>{{#_t}}Date de la recherche{{/_t}}</th>
             </tr>
         </thead>
         <tbody>
@@ -24,6 +25,7 @@
                 <td>{{keyword}}</td>
                 <td>{{num_searches}}</td>
                 <td>{{num_results}}</td>
+                <td>{{ts}}</td>
             </tr>
         {{/ searchHistory }}
         </tbody>
