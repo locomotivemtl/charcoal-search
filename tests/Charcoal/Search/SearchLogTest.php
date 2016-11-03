@@ -28,14 +28,14 @@ class SearchLogTest extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         $metadataLoader = new MetadataLoader([
-            'logger' => new NullLogger(),
+            'logger'    => new NullLogger(),
             'base_path' => __DIR__,
-            'paths' => ['metadata'],
-            'cache'  => new VoidCachePool()
+            'paths'     => [ 'metadata' ],
+            'cache'     => new VoidCachePool()
         ]);
 
         $this->obj = new SearchLog([
-            'logger' => new NullLogger(),
+            'logger'          => new NullLogger(),
             'metadata_loader' => $metadataLoader
         ]);
     }
@@ -61,6 +61,21 @@ class SearchLogTest extends PHPUnit_Framework_TestCase
 
         $this->setExpectedException('\InvalidArgumentException');
         $this->obj->setKeyword(false);
+    }
+
+    public function testSetOptions()
+    {
+        $this->assertNull($this->obj->options());
+
+        $ret = $this->obj->setOptions(['foo'=>[1,2,3]]);
+        $this->assertSame($ret, $this->obj);
+        $this->assertEquals(['foo'=>[1,2,3]], $this->obj->options());
+
+        $this->obj->setOptions(null);
+        $this->assertNull($this->obj->options());
+
+        $this->setExpectedException('\InvalidArgumentException');
+        $this->obj->setOptions(false);
     }
 
     public function testSetNumResults()
@@ -116,7 +131,7 @@ class SearchLogTest extends PHPUnit_Framework_TestCase
     {
         $ret = $this->obj->setIp('127.0.0.1');
         $this->assertSame($ret, $this->obj);
-        $this->assertEquals('127.0.0.1', $this->obj->ip());
+        $this->assertEquals(ip2long('127.0.0.1'), $this->obj->ip());
     }
 
     public function testSetSessionId()

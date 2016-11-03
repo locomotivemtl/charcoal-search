@@ -1,107 +1,27 @@
 {
-    "properties": {
-        "id": {
-            "type": "id",
-            "label": "ID"
-        },
-        "search_ident": {
-            "type": "string",
-            "label": {
-                "en": "Identifier",
-                "fr": "Identifiant"
-            }
-        },
-        "keyword": {
-            "type": "text",
-            "label": {
-                "en": "Query",
-                "fr": "Requête"
-            }
-        },
-        "num_results": {
-            "type": "integer",
-            "label": {
-                "en": "Number of Results",
-                "fr": "Nombre de résultats"
-            }
-        },
-        "results": {
-            "type": "structure",
-            "label": {
-                "en": "Results",
-                "fr": "Résultats"
-            }
-        },
-        "ip": {
-            "type": "ip",
-            "label": {
-                "en": "IP Address",
-                "fr": "Adresse IP"
-            },
-            "description": {
-                "en": "The remote (client) IP address at the creation time. Typically auto-genereted on save (or send).",
-                "fr": "L'adresse IP du client au moment de la création. Habituellement auto-générée lors de la sauvegarde / l'envoi."
-            }
-        },
-        "lang": {
-            "type": "lang",
-            "label": {
-                "en": "Language",
-                "fr": "Langue"
-            }
-        },
-        "ts": {
-            "type": "date-time",
-            "label": {
-                "en": "Timestamp",
-                "fr": "Horodatage"
-            },
-            "description": {
-                "en": "The date and time of creation. Typically auto-generated on save (or send).",
-                "fr": "La date (à la seconde) de création. Habituellement auto-générée lors de la sauvegarde (ou l'envoi)."
-            }
-        },
-        "origin": {
-            "type": "text",
-            "label": {
-                "en": "Origin",
-                "fr": "Origine"
-            },
-            "description": {
-                "en": "The location (e.g., URL) that contained the form the user submitted or action triggered.",
-                "fr": "L'emplacement (e.g., URL) qui contenait le formulaire que l'utilisateur a soumis ou l'action exécutée."
-            }
-        }
-    },
-
-    "sources": {
-        "default": {
-            "table": "charcoal_search_logs"
-        }
-    },
-    "default_source": "default",
-
     "admin": {
-        "export":{
-            "default":{
-                "properties":[
+        "export": {
+            "default": {
+                "properties": [
                     "search_ident",
                     "ts",
                     "keyword",
                     "num_results"
                 ],
-                "orders":[{
-                    "property":"ts",
-                    "mode":"desc"
-                }],
-                "exporter_options":{
-                    "convert_br_to_newlines":true,
-                    "strip_tags":true,
-                    "filename":"search-logs.csv"
+                "orders": [
+                    {
+                        "property": "ts",
+                        "mode": "desc"
+                    }
+                ],
+                "exporter_options": {
+                    "convert_br_to_newlines": true,
+                    "strip_tags": true,
+                    "filename": "search-logs.csv"
                 }
             }
         },
-        "default_export":"default",
+        "default_export": "default",
         "lists": {
             "default": {
                 "properties": [
@@ -116,10 +36,10 @@
                         "mode": "desc"
                     }
                 ],
-                "list_actions":{
-                    "export":{
-                        "url":"object/export?obj_type=charcoal/search/search-log",
-                        "label":"Export"
+                "list_actions": {
+                    "export": {
+                        "url": "object/export?obj_type=charcoal/search/search-log",
+                        "label": "Export"
                     }
                 }
             }
@@ -140,12 +60,8 @@
                 },
                 "layout": {
                     "structure": [
-                        {
-                            "columns": [ 1, 1 ]
-                        },
-                        {
-                            "columns": [ 1 ]
-                        }
+                        { "columns": [ 1, 1 ] },
+                        { "columns": [ 1 ] }
                     ]
                 },
                 "widgets": {
@@ -162,19 +78,19 @@
                         "collection_ident": "default",
                         "obj_type": "charcoal/search/search-log",
                         "priority": 3,
-                        "collection_config":{
+                        "collection_config": {
                             "orders": [
                                 {
                                     "property": "ts",
                                     "mode": "desc"
                                 }
                             ],
-                            "page":1,
-                            "num_per_page":40,
-                            "list_actions":{
-                                "export":{
-                                    "url":"object/export?obj_type=charcoal/search/search-log",
-                                    "label":"Export"
+                            "page": 1,
+                            "num_per_page": 40,
+                            "list_actions": {
+                                "export": {
+                                    "url": "object/export?obj_type=charcoal/search/search-log",
+                                    "label": "Export"
                                 }
                             }
                         }

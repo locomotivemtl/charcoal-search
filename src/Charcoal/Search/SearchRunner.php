@@ -17,7 +17,7 @@ use \Charcoal\Search\SearchLog;
 use \Charcoal\Search\SearchRunnerInterface;
 
 /**
- *
+ * A basic search mediator
  */
 class SearchRunner implements SearchRunnerInterface, LoggerAwareInterface
 {
@@ -122,15 +122,17 @@ class SearchRunner implements SearchRunnerInterface, LoggerAwareInterface
     }
 
     /**
-     * @param string $keyword The searched keyword.
-     * @throws InvalidArgumentException If the keyword is not a string.
+     * @param  string $keyword       The searched query.
+     * @param  array  $searchOptions Optional settings passed to each search objects.
+     * @param  array  $logOptions    Optional data passed to the search log.
+     * @throws InvalidArgumentException If the query is not a string.
      * @return array The results.
      */
-    final public function search($keyword)
+    final public function search($keyword, array $searchOptions = [], array $logOptions = [])
     {
         if (!is_string($keyword)) {
             throw new InvalidArgumentException(
-                'Search keyword must be a string.'
+                'Search query must be a string.'
             );
         }
 
@@ -151,31 +153,39 @@ class SearchRunner implements SearchRunnerInterface, LoggerAwareInterface
             );
         }
 
-        $numResults = 0;
+        $numResults    = 0;
         $searchObjects = $searchConfig['searches'];
+        $searchDeps    = [
+            'logger'        => $this->logger,
+            'model_factory' => $this->modelFactory()
+        ];
 
         foreach ($searchObjects as $searchIdent => $searchObj) {
             if ($searchObj instanceof SearchInterface) {
-                // Run search from Search object
-                $results = $searchObj->search($keyword);
+                $results = $searchObj->search($keyword, $searchObjects);
             } else {
-                $searchOptions = array_merge($searchObj, [
-                    'logger' => $this->logger,
-                    'model_factory' => $this->modelFactory()
-                ]);
-                $search = new CustomSearch($searchOptions);
-                $results =  $search->search($keyword);
+                $search  = new CustomSearch(array_merge($searchObj, $searchDeps));
+                $results = $search->search($keyword, $searchObjects);
             }
+
             $this->results[$searchIdent] = $results;
             $numResults += count($results);
         }
 
-        $this->searchLog = $this->createLog([
-            'search_ident'  => isset($searchConfig['ident']) ? $searchConfig['ident'] : '',
-            'keyword'       => $keyword,
-            'num_results'   => $numResults,
-            'results'       => $this->results
-        ]);
+        $logData = [
+            'search_ident'    => isset($searchConfig['ident']) ? $searchConfig['ident'] : '',
+            'search_options'  => $searchOptions,
+            'keyword'         => $keyword,
+            'num_results'     => $numResults,
+            'results'         => $this->results
+        ];
+
+        if ($logOptions) {
+            $logOptions = array_diff_key($logOptions, array_keys($logData));
+            $logData    = array_merge($logData, $logOptions);
+        }
+
+        $this->searchLog = $this->createLog($logData);
 
         return $this->results;
     }

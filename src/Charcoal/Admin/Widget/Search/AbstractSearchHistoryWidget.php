@@ -54,22 +54,10 @@ abstract class AbstractSearchHistoryWidget extends AdminWidget
      */
     private $searchHistory;
 
-
-    /**
-     * Inject dependencies from a DI Container.
-     *
-     * @param  Container $container A dependencies container instance.
-     * @return void
-     */
-    public function setDependencies(Container $container)
-    {
-        parent::setDependencies($container);
-    }
-
     /**
      * Set the lower bound (exclusive) for a search's timestamp to filter by.
      *
-     * @param string|DateTimeInterface|null $date The starting date/time.
+     * @param  string|DateTimeInterface|null $date The starting date/time.
      * @throws InvalidArgumentException If the date/time is invalid.
      * @return TopSearchWidget Chainable
      */
@@ -113,7 +101,7 @@ abstract class AbstractSearchHistoryWidget extends AdminWidget
     /**
      * Set the upper bound (inclusive) for a search's timestamp to filter by.
      *
-     * @param string|DateTimeInterface|null $date The ending date/time.
+     * @param  string|DateTimeInterface|null $date The ending date/time.
      * @throws InvalidArgumentException If the date/time is invalid.
      * @return TopSearchWidget Chainable
      */

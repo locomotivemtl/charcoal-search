@@ -2,6 +2,9 @@
 
 namespace Charcoal\Search;
 
+/**
+ * Defines a search meditator
+ */
 interface SearchRunnerInterface
 {
     /**
@@ -20,8 +23,10 @@ interface SearchRunnerInterface
     public function results();
 
     /**
-     * @param string $keyword The searched keyword.
-     * @return array
+     * @param  string $keyword       The searched query.
+     * @param  array  $searchOptions Optional settings passed to each search objects.
+     * @param  array  $logOptions    Optional data passed to the search log.
+     * @return array The results.
      */
-    public function search($keyword);
+    public function search($keyword, array $searchOptions = [], array $logOptions = []);
 }

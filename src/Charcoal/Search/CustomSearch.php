@@ -15,7 +15,7 @@ final class CustomSearch extends AbstractSearch
     private $callback;
 
     /**
-     * @param array $data The dependencies and options.
+     * @param  array $data The dependencies and options.
      * @throws InvalidArgumentException If the callback option is not set.
      */
     public function __construct(array $data)
@@ -31,7 +31,7 @@ final class CustomSearch extends AbstractSearch
     }
 
     /**
-     * @param callable $callback The callback that will actually run the search.
+     * @param  callable $callback The callback that will actually run the search.
      * @return void
      */
     public function setCallback(callable $callback)
@@ -40,14 +40,18 @@ final class CustomSearch extends AbstractSearch
     }
 
     /**
-     * @param string $keyword The searched-for keyword.
-     * @return array
+     * Process the search query.
+     *
+     * @param  string $keyword       The search term(s).
+     * @param  array  $searchOptions Additional options.
+     * @return array The results.
      */
-    public function search($keyword)
+    public function search($keyword, array $searchOptions = [])
     {
-        $cb = $this->callback;
-        $results = $cb($keyword);
+        $callback = $this->callback;
+        $results  = $callback($keyword, $searchOptions);
         $this->setResults($results);
+
         return $results;
     }
 }

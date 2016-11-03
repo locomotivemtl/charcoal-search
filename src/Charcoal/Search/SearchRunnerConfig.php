@@ -9,5 +9,4 @@ use \Charcoal\Config\AbstractConfig;
  */
 class SearchRunnerConfig extends AbstractConfig
 {
-
 }

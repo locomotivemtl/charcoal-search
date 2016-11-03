@@ -25,14 +25,14 @@ abstract class AbstractSearch implements
      *
      * @var array
      */
-    private $results;
+    protected $results;
 
     /**
      * Store the factory instance for the current class.
      *
      * @var FactoryInterface
      */
-    protected $modelFactory;
+    private $modelFactory;
 
     /**
      * Return a new search object.
@@ -48,7 +48,7 @@ abstract class AbstractSearch implements
     /**
      * Set an object model factory.
      *
-     * @param FactoryInterface $factory The model factory, to create objects.
+     * @param  FactoryInterface $factory The model factory, to create objects.
      * @return self
      */
     protected function setModelFactory(FactoryInterface $factory)
@@ -78,28 +78,30 @@ abstract class AbstractSearch implements
     /**
      * Process the search query.
      *
-     * @param string $keyword The searched-for keyword.
-     * @return array
+     * @param  string $keyword       The search term(s).
+     * @param  array  $searchOptions Additional options.
+     * @return array|\Traversable The results.
      */
-    abstract public function search($keyword);
+    abstract public function search($keyword, array $searchOptions = []);
 
     /**
      * Alias of {@see self::search()}.
      *
      * A search is always callable.
      *
-     * @param string $keyword The searched-for keyword.
+     * @param  string $keyword       The search term(s).
+     * @param  array  $searchOptions Additional options.
      * @return array The results.
      */
-    final public function __invoke($keyword)
+    final public function __invoke($keyword, array $searchOptions = [])
     {
-        return $this->search($keyword);
+        return $this->search($keyword, $searchOptions);
     }
 
     /**
      * Retrieve the results from the latest search.
      *
-     * @param string $resultType The type of results to search. Can be only "raw" for now.
+     * @param  string $resultType The type of results to search. Can be only "raw" for now.
      * @throws RuntimeException If this method is called before a search was executed.
      * @return array The results from the last search operation.
      */
@@ -112,14 +114,26 @@ abstract class AbstractSearch implements
         }
 
         if ($resultType === 'raw') {
-            return $this->lastResults;
+            return $this->results;
         }
+
+        return [];
+    }
+
+    /**
+     * Determine if the latest search has any results.
+     *
+     * @return boolean
+     */
+    final public function hasResults()
+    {
+        return boolval($this->results);
     }
 
     /**
      * Set the results from a search.
      *
-     * @param array $results The (raw) search results.
+     * @param  array $results The (raw) search results.
      * @return void
      */
     final protected function setResults(array $results)
