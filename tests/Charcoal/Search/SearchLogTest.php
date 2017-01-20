@@ -7,7 +7,7 @@ use \PHPUnit_Framework_TestCase;
 use \Psr\Log\NullLogger;
 use \Cache\Adapter\Void\VoidCachePool;
 
-use \Charcoal\Model\MetadataLoader;
+use \Charcoal\Model\Service\MetadataLoader;
 
 use \Charcoal\Search\SearchLog;
 

@@ -7,7 +7,7 @@ use \Cache\Adapter\Void\VoidCachePool;
 
 use \Charcoal\Factory\GenericFactory;
 
-use \Charcoal\Model\MetadataLoader;
+use \Charcoal\Model\Service\MetadataLoader;
 
 use \Charcoal\Search\SearchRunnerConfig;
 use \Charcoal\Search\SearchRunner;
