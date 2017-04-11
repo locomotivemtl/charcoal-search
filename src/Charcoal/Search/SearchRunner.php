@@ -172,12 +172,18 @@ class SearchRunner implements SearchRunnerInterface, LoggerAwareInterface
             $numResults += count($results);
         }
 
+
+        $logResults = [];
+        foreach($this->results as $k=>$v) {
+            $logResults[$k] = $this->searchResultsToLogResults($v);
+        }
+
         $logData = [
             'search_ident'    => isset($searchConfig['ident']) ? $searchConfig['ident'] : '',
             'search_options'  => $searchOptions,
             'keyword'         => $keyword,
             'num_results'     => $numResults,
-            'results'         => $this->results
+            'results'         => $logResults
         ];
 
         if ($logOptions) {
@@ -204,5 +210,23 @@ class SearchRunner implements SearchRunnerInterface, LoggerAwareInterface
         }
 
         return $log;
+    }
+
+    /**
+     * @param array $results
+     * @return array
+     */
+    private function searchResultsToLogResults(array $results)
+    {
+        $res = [];
+        foreach($results as $result) {
+            if (isset($result['id'])) {
+                $res[] = $result['id'];
+                continue;
+            }
+            $res[] = $result;
+
+        }
+        return $res;
     }
 }
