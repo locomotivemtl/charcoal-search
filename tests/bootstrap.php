@@ -43,4 +43,3 @@ $GLOBALS['logger'] = new \Psr\Log\NullLogger();
 
 // Charcoal / Slim is the main app
 $GLOBALS['app'] = App::instance($GLOBALS['container']);
-$GLOBALS['app']->setLogger($GLOBALS['logger']);

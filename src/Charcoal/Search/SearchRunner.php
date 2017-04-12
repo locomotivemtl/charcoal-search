@@ -172,9 +172,8 @@ class SearchRunner implements SearchRunnerInterface, LoggerAwareInterface
             $numResults += count($results);
         }
 
-
         $logResults = [];
-        foreach($this->results as $k=>$v) {
+        foreach ($this->results as $k => $v) {
             $logResults[$k] = $this->searchResultsToLogResults($v);
         }
 
@@ -213,19 +212,20 @@ class SearchRunner implements SearchRunnerInterface, LoggerAwareInterface
     }
 
     /**
-     * @param array $results
+     * For logging purposes, only keep the "id" of elements.
+     *
+     * @param array $results The results to parse.
      * @return array
      */
     private function searchResultsToLogResults(array $results)
     {
         $res = [];
-        foreach($results as $result) {
+        foreach ($results as $result) {
             if (isset($result['id'])) {
                 $res[] = $result['id'];
-                continue;
+            } else {
+                $res[] = $result;
             }
-            $res[] = $result;
-
         }
         return $res;
     }
