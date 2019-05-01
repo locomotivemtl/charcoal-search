@@ -88,30 +88,6 @@ class SearchLogTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(666, $this->obj->numResults());
     }
 
-    public function testSetResults()
-    {
-        $this->assertNull($this->obj->results());
-
-        $ret = $this->obj->setResults(['foo'=>[1,2,3]]);
-        $this->assertSame($ret, $this->obj);
-        $this->assertEquals(['foo'=>[1,2,3]], $this->obj->results());
-
-        $this->obj->setResults(null);
-        $this->assertNull($this->obj->results());
-
-        $this->setExpectedException('\InvalidArgumentException');
-        $this->obj->setResults(false);
-    }
-
-    public function testSetResultsJson()
-    {
-        $this->obj->setResults('{"foo":[1,2,3]}');
-        $this->assertEquals(['foo'=>[1,2,3]], $this->obj->results());
-
-        $this->setExpectedException('\InvalidArgumentException');
-        $this->obj->setResults('{"foo:invalid');
-    }
-
     public function testSetTs()
     {
         $this->assertNull($this->obj->ts());

@@ -2,13 +2,14 @@
 
 namespace Charcoal\Search;
 
-use \DateTime;
-use \DateTimeInterface;
-use \Traversable;
-use \InvalidArgumentException;
+use DateTime;
+use DateTimeInterface;
+use Exception;
+use Traversable;
+use InvalidArgumentException;
 
 // From 'charcoal-core'
-use \Charcoal\Model\AbstractModel;
+use Charcoal\Model\AbstractModel;
 
 /**
  * Search logs should be saved every time a client initiates a search request.
@@ -42,13 +43,6 @@ class SearchLog extends AbstractModel implements SearchLogInterface
      * @var integer|null
      */
     private $numResults;
-
-    /**
-     * Detailed results, if available.
-     *
-     * @var array|null
-     */
-    private $results;
 
     /**
      * Client session ID
@@ -90,7 +84,7 @@ class SearchLog extends AbstractModel implements SearchLogInterface
      *
      * @param  string $ident The search identifier.
      * @throws InvalidArgumentException If the identifier is not a string.
-     * @return SearchLog Chainable
+     * @return self
      */
     public function setSearchIdent($ident)
     {
@@ -120,7 +114,7 @@ class SearchLog extends AbstractModel implements SearchLogInterface
      *
      * @param  string $kw The searched term / keyword.
      * @throws InvalidArgumentException If the keyword is not a string.
-     * @return SearchLog Chainable
+     * @return self
      */
     public function setKeyword($kw)
     {
@@ -150,7 +144,7 @@ class SearchLog extends AbstractModel implements SearchLogInterface
      *
      * @param  mixed $options The search options, if defined.
      * @throws InvalidArgumentException If the options is not an array or invalid JSON.
-     * @return SearchLog Chainable
+     * @return self
      */
     public function setOptions($options)
     {
@@ -188,7 +182,7 @@ class SearchLog extends AbstractModel implements SearchLogInterface
      * Set the result count.
      *
      * @param  integer $count The number of results from the search.
-     * @return SearchLog Chainable
+     * @return self
      */
     public function setNumResults($count)
     {
@@ -208,52 +202,11 @@ class SearchLog extends AbstractModel implements SearchLogInterface
     }
 
     /**
-     * Set the collection of results.
-     *
-     * @param  mixed $results The search results data, if available.
-     * @throws InvalidArgumentException If the results is not an array or invalid JSON.
-     * @return SearchLog Chainable
-     */
-    public function setResults($results)
-    {
-        if ($results === null) {
-            $this->results = null;
-        } elseif (is_string($results)) {
-            $this->results = json_decode($results, true);
-            if (json_last_error() !== JSON_ERROR_NONE) {
-                throw new InvalidArgumentException(
-                    sprintf('Invalid JSON for search results: "%s"', $results)
-                );
-            }
-        } elseif (is_array($results)) {
-            $this->results = $results;
-        } elseif ($results instanceof Traversable) {
-            $this->results = iterator_to_array($results, false);
-        } else {
-            throw new InvalidArgumentException(
-                'Invalid search results type. Must be a JSON string, an array, an iterator, or NULL.'
-            );
-        }
-
-        return $this;
-    }
-
-    /**
-     * Retrieve the collection of results.
-     *
-     * @return array
-     */
-    public function results()
-    {
-        return $this->results;
-    }
-
-    /**
      * Set the client session ID.
      *
      * @param  string $id The session identifier. Typically, {@see session_id()}.
      * @throws InvalidArgumentException If the session id is not a string.
-     * @return SearchLog Chainable
+     * @return self
      */
     public function setSessionId($id)
     {
@@ -287,7 +240,7 @@ class SearchLog extends AbstractModel implements SearchLogInterface
      * Set the client IP address.
      *
      * @param  integer|null $ip The remote IP at object creation.
-     * @return SearchLog Chainable
+     * @return self
      */
     public function setIp($ip)
     {
@@ -324,7 +277,7 @@ class SearchLog extends AbstractModel implements SearchLogInterface
      *
      * @param  string $lang The language code.
      * @throws InvalidArgumentException If the argument is not a string.
-     * @return SearchLog Chainable
+     * @return self
      */
     public function setLang($lang)
     {
@@ -356,7 +309,7 @@ class SearchLog extends AbstractModel implements SearchLogInterface
      *
      * @param  string $origin The source URL or identifier of the submission.
      * @throws InvalidArgumentException If the argument is not a string.
-     * @return SearchLog Chainable
+     * @return self
      */
     public function setOrigin($origin)
     {
@@ -371,25 +324,6 @@ class SearchLog extends AbstractModel implements SearchLogInterface
         $this->origin = $origin;
 
         return $this;
-    }
-
-    /**
-     * Resolve the origin of the search.
-     *
-     * @return string
-     */
-    public function resolveOrigin()
-    {
-        $uri = 'http';
-
-        if (getenv('HTTPS') === 'on') {
-            $uri .= 's';
-        }
-
-        $uri .= '://';
-        $uri .= getenv('HTTP_HOST').getenv('REQUEST_URI');
-
-        return $uri;
     }
 
     /**
@@ -409,7 +343,7 @@ class SearchLog extends AbstractModel implements SearchLogInterface
      *     NULL is accepted and instances of DateTimeInterface are recommended;
      *     any other value will be converted (if possible) into one.
      * @throws InvalidArgumentException If the timestamp is invalid.
-     * @return SearchLog Chainable
+     * @return self
      */
     public function setTs($timestamp)
     {
@@ -455,7 +389,7 @@ class SearchLog extends AbstractModel implements SearchLogInterface
      * @see    Charcoal\Source\StorableTrait::preSave() For the "create" Event.
      * @return boolean
      */
-    public function preSave()
+    protected function preSave()
     {
         $result = parent::preSave();
 
@@ -474,5 +408,24 @@ class SearchLog extends AbstractModel implements SearchLogInterface
         }
 
         return $result;
+    }
+
+    /**
+     * Resolve the origin of the search.
+     *
+     * @return string
+     */
+    private function resolveOrigin()
+    {
+        $uri = 'http';
+
+        if (getenv('HTTPS') === 'on') {
+            $uri .= 's';
+        }
+
+        $uri .= '://';
+        $uri .= getenv('HTTP_HOST').getenv('REQUEST_URI');
+
+        return $uri;
     }
 }

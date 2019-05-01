@@ -73,21 +73,6 @@ interface SearchLogInterface
     public function numResults();
 
     /**
-     * Set the collection of results.
-     *
-     * @param  mixed $results The search results data, if available.
-     * @return SearchLogInterface Chainable
-     */
-    public function setResults($results);
-
-    /**
-     * Retrieve the collection of results.
-     *
-     * @return array
-     */
-    public function results();
-
-    /**
      * Set the client session ID.
      *
      * @param  string $id The session identifier. Typically, {@see session_id()}.

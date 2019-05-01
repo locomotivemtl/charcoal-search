@@ -10,12 +10,6 @@ use \Psr\Log\LoggerAwareTrait;
 
 use \Charcoal\Factory\FactoryInterface;
 
-use \Charcoal\Search\CustomSearch;
-use \Charcoal\Search\SearchRunnerConfig;
-use \Charcoal\Search\SearchInterface;
-use \Charcoal\Search\SearchLog;
-use \Charcoal\Search\SearchRunnerInterface;
-
 /**
  * A basic search mediator
  */
@@ -172,17 +166,11 @@ class SearchRunner implements SearchRunnerInterface, LoggerAwareInterface
             $numResults += count($results);
         }
 
-        $logResults = [];
-        foreach ($this->results as $k => $v) {
-            $logResults[$k] = $this->searchResultsToLogResults($v);
-        }
-
         $logData = [
             'search_ident'    => isset($searchConfig['ident']) ? $searchConfig['ident'] : '',
             'search_options'  => $searchOptions,
             'keyword'         => $keyword,
-            'num_results'     => $numResults,
-            'results'         => $logResults
+            'num_results'     => $numResults
         ];
 
         if ($logOptions) {
@@ -209,24 +197,5 @@ class SearchRunner implements SearchRunnerInterface, LoggerAwareInterface
         }
 
         return $log;
-    }
-
-    /**
-     * For logging purposes, only keep the "id" of elements.
-     *
-     * @param array $results The results to parse.
-     * @return array
-     */
-    private function searchResultsToLogResults(array $results)
-    {
-        $res = [];
-        foreach ($results as $result) {
-            if (isset($result['id'])) {
-                $res[] = $result['id'];
-            } else {
-                $res[] = $result;
-            }
-        }
-        return $res;
     }
 }
