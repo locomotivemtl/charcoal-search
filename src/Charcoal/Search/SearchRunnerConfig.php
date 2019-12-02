@@ -2,7 +2,8 @@
 
 namespace Charcoal\Search;
 
-use \Charcoal\Config\AbstractConfig;
+// From 'charcoal-config'
+use Charcoal\Config\AbstractConfig;
 
 /**
  *

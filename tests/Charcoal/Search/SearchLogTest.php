@@ -1,20 +1,26 @@
 <?php
 
-namespace Charcoal\Search\Tests;
+namespace Charcoal\Tests\Search;
 
-use \PHPUnit_Framework_TestCase;
+use InvalidArgumentException;
 
-use \Psr\Log\NullLogger;
-use \Cache\Adapter\Void\VoidCachePool;
+// From PSR-3
+use Psr\Log\NullLogger;
 
-use \Charcoal\Model\Service\MetadataLoader;
+// From 'cache/void-adapter'
+use Cache\Adapter\Void\VoidCachePool;
 
-use \Charcoal\Search\SearchLog;
+// From 'charcoal-core'
+use Charcoal\Model\Service\MetadataLoader;
+
+// From 'charcoal-search'
+use Charcoal\Search\SearchLog;
+use Charcoal\Tests\AbstractTestCase;
 
 /**
  *
  */
-class SearchLogTest extends PHPUnit_Framework_TestCase
+class SearchLogTest extends AbstractTestCase
 {
     /**
      * An instance of the SearchLog object under test
@@ -49,7 +55,7 @@ class SearchLogTest extends PHPUnit_Framework_TestCase
         $this->assertSame($ret, $this->obj);
         $this->assertEquals('foo', $this->obj->searchIdent());
 
-        $this->setExpectedException('\InvalidArgumentException');
+        $this->expectException(InvalidArgumentException::class);
         $this->obj->setSearchIdent(false);
     }
 
@@ -59,7 +65,7 @@ class SearchLogTest extends PHPUnit_Framework_TestCase
         $this->assertSame($ret, $this->obj);
         $this->assertEquals('bar', $this->obj->keyword());
 
-        $this->setExpectedException('\InvalidArgumentException');
+        $this->expectException(InvalidArgumentException::class);
         $this->obj->setKeyword(false);
     }
 
@@ -74,7 +80,7 @@ class SearchLogTest extends PHPUnit_Framework_TestCase
         $this->obj->setOptions(null);
         $this->assertNull($this->obj->options());
 
-        $this->setExpectedException('\InvalidArgumentException');
+        $this->expectException(InvalidArgumentException::class);
         $this->obj->setOptions(false);
     }
 
@@ -99,7 +105,7 @@ class SearchLogTest extends PHPUnit_Framework_TestCase
         $this->obj->setTs(null);
         $this->assertNull($this->obj->ts());
 
-        $this->setExpectedException('\Exception');
+        $this->expectException('\Exception');
         $this->obj->setTs('invalid date');
     }
 
@@ -120,7 +126,7 @@ class SearchLogTest extends PHPUnit_Framework_TestCase
         $this->obj->setSessionId(null);
         $this->assertNull($this->obj->sessionId());
 
-        $this->setExpectedException('\InvalidArgumentException');
+        $this->expectException(InvalidArgumentException::class);
         $this->obj->setSessionId(false);
     }
 
@@ -137,7 +143,7 @@ class SearchLogTest extends PHPUnit_Framework_TestCase
         $this->assertSame($ret, $this->obj);
         $this->assertEquals('foobar', $this->obj->origin());
 
-        $this->setExpectedException('\InvalidArgumentException');
+        $this->expectException(InvalidArgumentException::class);
         $this->obj->setOrigin(false);
     }
 }

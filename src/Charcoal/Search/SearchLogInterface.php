@@ -2,10 +2,10 @@
 
 namespace Charcoal\Search;
 
-use \DateTime;
-use \DateTimeInterface;
-use \Traversable;
-use \InvalidArgumentException;
+use DateTime;
+use DateTimeInterface;
+use Traversable;
+use InvalidArgumentException;
 
 /**
  * Defines a search log.

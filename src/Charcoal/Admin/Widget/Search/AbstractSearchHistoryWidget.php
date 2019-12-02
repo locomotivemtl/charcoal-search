@@ -2,13 +2,15 @@
 
 namespace Charcoal\Admin\Widget\Search;
 
-use \DateTime;
-use \DateTimeInterface;
-use \InvalidArgumentException;
+use DateTime;
+use DateTimeInterface;
+use InvalidArgumentException;
 
-use \Pimple\Container;
+// From Pimple
+use Pimple\Container;
 
-use \Charcoal\Admin\AdminWidget;
+// From 'charcoal-search'
+use Charcoal\Admin\AdminWidget;
 
 /**
  * A basic search history widget.

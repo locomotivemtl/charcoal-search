@@ -1,23 +1,30 @@
 <?php
 
-namespace Charcoal\Search\Tests;
+namespace Charcoal\Tests\Search;
 
-use \Psr\Log\NullLogger;
-use \Cache\Adapter\Void\VoidCachePool;
+use InvalidArgumentException;
 
-use \Charcoal\Factory\GenericFactory;
+// From PSR-3
+use Psr\Log\NullLogger;
 
-use \Charcoal\Model\Service\MetadataLoader;
+// From 'cache/void-adapter'
+use Cache\Adapter\Void\VoidCachePool;
 
-use \Charcoal\Search\SearchRunnerConfig;
-use \Charcoal\Search\SearchRunner;
+// From 'charcoal-factory'
+use Charcoal\Factory\GenericFactory;
 
-use \PHPUnit_Framework_TestCase;
+// From 'charcoal-core'
+use Charcoal\Model\Service\MetadataLoader;
+
+// From 'charcoal-search'
+use Charcoal\Search\SearchRunnerConfig;
+use Charcoal\Search\SearchRunner;
+use Charcoal\Tests\AbstractTestCase;
 
 /**
  *
  */
-class SearchRunnerTest extends PHPUnit_Framework_TestCase
+class SearchRunnerTest extends AbstractTestCase
 {
     /**
      * @var \Charcoal\Factory\FactoryInterface $modelFactory
@@ -107,7 +114,7 @@ class SearchRunnerTest extends PHPUnit_Framework_TestCase
     public function testSearchInvalidKeywordThrowsException()
     {
         $obj = $this->obj();
-        $this->setExpectedException('\InvalidArgumentException');
+        $this->expectException(InvalidArgumentException::class);
         $obj->search([]);
     }
 
@@ -117,7 +124,7 @@ class SearchRunnerTest extends PHPUnit_Framework_TestCase
     public function testSearchEmptyKeywordThrowsException()
     {
         $obj = $this->obj();
-        $this->setExpectedException('\InvalidArgumentException');
+        $this->expectException(InvalidArgumentException::class);
         $obj->search('');
     }
 
@@ -129,7 +136,7 @@ class SearchRunnerTest extends PHPUnit_Framework_TestCase
         $obj = $this->obj([
             'foo' => 'nar'
         ]);
-        $this->setExpectedException('\InvalidArgumentException');
+        $this->expectException(InvalidArgumentException::class);
         $obj->search('foo');
     }
 
@@ -143,7 +150,7 @@ class SearchRunnerTest extends PHPUnit_Framework_TestCase
                 'foo'   => []
             ]
         ]);
-        $this->setExpectedException('\InvalidArgumentException');
+        $this->expectException(InvalidArgumentException::class);
         $obj->search('foo');
     }
 
@@ -159,7 +166,7 @@ class SearchRunnerTest extends PHPUnit_Framework_TestCase
                 ]
             ]
         ]);
-        $this->setExpectedException('\InvalidArgumentException');
+        $this->expectException(InvalidArgumentException::class);
         $obj->search('foo');
     }
 
@@ -175,7 +182,7 @@ class SearchRunnerTest extends PHPUnit_Framework_TestCase
                 ]
             ]
         ]);
-        $this->setExpectedException('\InvalidArgumentException');
+        $this->expectException(InvalidArgumentException::class);
         $obj->search('foo');
     }
 

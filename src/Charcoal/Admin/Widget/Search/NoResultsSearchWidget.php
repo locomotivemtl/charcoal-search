@@ -2,9 +2,10 @@
 
 namespace Charcoal\Admin\Widget\Search;
 
-use \PDO;
+use PDO;
 
-use \Charcoal\Search\SearchLog;
+// From 'charcoal-search'
+use Charcoal\Search\SearchLog;
 
 /**
  * Search widget to show the latest searched-for terms that produced no results.

@@ -2,12 +2,14 @@
 
 namespace Charcoal\Search;
 
-use \RuntimeException;
+use RuntimeException;
 
-use \Psr\Log\LoggerAwareInterface;
-use \Psr\Log\LoggerAwareTrait;
+// From PSR-3
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerAwareTrait;
 
-use \Charcoal\Factory\FactoryInterface;
+// From 'charcoal-factory'
+use Charcoal\Factory\FactoryInterface;
 
 /**
  * A Basic Search Request

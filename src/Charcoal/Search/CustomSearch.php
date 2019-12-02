@@ -2,7 +2,7 @@
 
 namespace Charcoal\Search;
 
-use \InvalidArgumentException;
+use InvalidArgumentException;
 
 /**
  * Custom search delegates the search to a callbak.
