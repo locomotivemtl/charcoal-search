@@ -96,32 +96,6 @@ class SearchRunner implements SearchRunnerInterface, LoggerAwareInterface
     }
 
     /**
-     * Public access to the search config.
-     * @return SearchRunnerConfig
-     */
-    public function searchConfig()
-    {
-        return $this->searchConfig;
-    }
-
-    /**
-     * Public access to the search log.
-     * @return SearchLog
-     */
-    public function searchLog()
-    {
-        return $this->searchLog;
-    }
-
-    /**
-     * @return array
-     */
-    public function results()
-    {
-        return $this->results;
-    }
-
-    /**
      * @param  string $keyword       The searched query.
      * @param  array  $searchOptions Optional settings passed to each search objects.
      * @param  array  $logOptions    Optional data passed to the search log.
@@ -145,7 +119,7 @@ class SearchRunner implements SearchRunnerInterface, LoggerAwareInterface
         // Reset results
         $this->results = [];
 
-        $searchConfig = $this->searchConfig();
+        $searchConfig = $this->searchConfig;
 
         if (!isset($searchConfig['searches'])) {
             throw new InvalidArgumentException(

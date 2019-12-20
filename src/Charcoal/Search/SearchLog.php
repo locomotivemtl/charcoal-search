@@ -20,70 +20,70 @@ class SearchLog extends AbstractModel implements SearchLogInterface
      *
      * @var string
      */
-    private $searchIdent;
+    protected $searchIdent;
 
     /**
      * The searched keyword.
      *
      * @var string
      */
-    private $keyword;
+    protected $keyword;
 
     /**
      * The search options, if defined.
      *
      * @var array|null
      */
-    private $options;
+    protected $options;
 
     /**
      * Number of search results.
      *
      * @var integer|null
      */
-    private $numResults;
+    protected $numResults;
 
     /**
      * Detailed results, if available.
      *
      * @var array|null
      */
-    private $results;
+    protected $results;
 
     /**
      * Client session ID
      *
      * @var string|null
      */
-    private $sessionId;
+    protected $sessionId;
 
     /**
      * Client IP address of the end-user.
      *
      * @var integer|null
      */
-    private $ip;
+    protected $ip;
 
     /**
      * Language of the end-user or source URI.
      *
      * @var string|null
      */
-    private $lang;
+    protected $lang;
 
     /**
      * The search origin; an identifier representing where the search was executed from.
      *
      * @var string|null
      */
-    private $origin;
+    protected $origin;
 
     /**
      * Timestamp of the search request.
      *
      * @var DateTimeInterface|null
      */
-    private $ts;
+    protected $ts;
 
     /**
      * Set the log's associated search identifier.
@@ -106,16 +106,6 @@ class SearchLog extends AbstractModel implements SearchLogInterface
     }
 
     /**
-     * Retrieve the log's associated search identifier.
-     *
-     * @return string
-     */
-    public function searchIdent()
-    {
-        return $this->searchIdent;
-    }
-
-    /**
      * Set the searched term.
      *
      * @param  string $kw The searched term / keyword.
@@ -133,16 +123,6 @@ class SearchLog extends AbstractModel implements SearchLogInterface
         $this->keyword = $kw;
 
         return $this;
-    }
-
-    /**
-     * Retrieve the searched term.
-     *
-     * @return string
-     */
-    public function keyword()
-    {
-        return $this->keyword;
     }
 
     /**
@@ -175,16 +155,6 @@ class SearchLog extends AbstractModel implements SearchLogInterface
     }
 
     /**
-     * Retrieve the options applied to the search.
-     *
-     * @return array
-     */
-    public function options()
-    {
-        return $this->options;
-    }
-
-    /**
      * Set the result count.
      *
      * @param  integer $count The number of results from the search.
@@ -195,16 +165,6 @@ class SearchLog extends AbstractModel implements SearchLogInterface
         $this->numResults = (int)$count;
 
         return $this;
-    }
-
-    /**
-     * Retrieve the result count.
-     *
-     * @return integer
-     */
-    public function numResults()
-    {
-        return $this->numResults;
     }
 
     /**
@@ -239,16 +199,6 @@ class SearchLog extends AbstractModel implements SearchLogInterface
     }
 
     /**
-     * Retrieve the collection of results.
-     *
-     * @return array
-     */
-    public function results()
-    {
-        return $this->results;
-    }
-
-    /**
      * Set the client session ID.
      *
      * @param  string $id The session identifier. Typically, {@see session_id()}.
@@ -271,16 +221,6 @@ class SearchLog extends AbstractModel implements SearchLogInterface
         $this->sessionId = $id;
 
         return $this;
-    }
-
-    /**
-     * Retrieve the client session ID.
-     *
-     * @return string
-     */
-    public function sessionId()
-    {
-        return $this->sessionId;
     }
 
     /**
@@ -310,16 +250,6 @@ class SearchLog extends AbstractModel implements SearchLogInterface
     }
 
     /**
-     * Retrieve the client IP address.
-     *
-     * @return integer|null
-     */
-    public function ip()
-    {
-        return $this->ip;
-    }
-
-    /**
      * Set the origin language.
      *
      * @param  string $lang The language code.
@@ -339,16 +269,6 @@ class SearchLog extends AbstractModel implements SearchLogInterface
         $this->lang = $lang;
 
         return $this;
-    }
-
-    /**
-     * Retrieve the language.
-     *
-     * @return string
-     */
-    public function lang()
-    {
-        return $this->lang;
     }
 
     /**
@@ -393,16 +313,6 @@ class SearchLog extends AbstractModel implements SearchLogInterface
     }
 
     /**
-     * Retrieve the origin of the search request.
-     *
-     * @return string
-     */
-    public function origin()
-    {
-        return $this->origin;
-    }
-
-    /**
      * Set when the search was initiated.
      *
      * @param  DateTime|string|null $timestamp The timestamp of search request.
@@ -437,16 +347,6 @@ class SearchLog extends AbstractModel implements SearchLogInterface
         $this->ts = $timestamp;
 
         return $this;
-    }
-
-    /**
-     * Retrieve the creation timestamp.
-     *
-     * @return DateTime|null
-     */
-    public function ts()
-    {
-        return $this->ts;
     }
 
     /**

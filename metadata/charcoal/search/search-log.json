@@ -3,10 +3,10 @@
         "export": {
             "default": {
                 "properties": [
-                    "search_ident",
+                    "searchIdent",
                     "ts",
                     "keyword",
-                    "num_results"
+                    "numResults"
                 ],
                 "orders": [
                     {
@@ -14,21 +14,23 @@
                         "mode": "desc"
                     }
                 ],
-                "exporter_options": {
-                    "convert_br_to_newlines": true,
-                    "strip_tags": true,
+                "exporterOptions": {
+                    "convertBrToNewlines": true,
+                    "stripTags": true,
                     "filename": "search-logs.csv"
                 }
             }
         },
-        "default_export": "default",
+
+        "defaultExport": "default",
+
         "lists": {
             "default": {
                 "properties": [
-                    "search_ident",
+                    "searchIdent",
                     "ts",
                     "keyword",
-                    "num_results"
+                    "numResults"
                 ],
                 "orders": [
                     {
@@ -36,7 +38,7 @@
                         "mode": "desc"
                     }
                 ],
-                "list_actions": {
+                "listActions": {
                     "export": {
                         "url": "object/export?obj_type=charcoal/search/search-log",
                         "label": "Export"
@@ -44,12 +46,14 @@
                 }
             }
         },
-        "default_list": "default",
+
+        "defaultList": "default",
 
         "forms": {
             "default": {}
         },
-        "default_form": "default",
+
+        "defaultForm": "default",
 
         "dashboards": {
             "admin.edit": {},
@@ -75,10 +79,10 @@
                     },
                     "table": {
                         "type": "charcoal/admin/widget/table",
-                        "collection_ident": "default",
-                        "obj_type": "charcoal/search/search-log",
+                        "collectionIdent": "default",
+                        "objType": "charcoal/search/search-log",
                         "priority": 3,
-                        "collection_config": {
+                        "collectionConfig": {
                             "orders": [
                                 {
                                     "property": "ts",
@@ -86,8 +90,8 @@
                                 }
                             ],
                             "page": 1,
-                            "num_per_page": 40,
-                            "list_actions": {
+                            "numPerPage": 40,
+                            "listActions": {
                                 "export": {
                                     "url": "object/export?obj_type=charcoal/search/search-log",
                                     "label": "Export"
@@ -98,8 +102,9 @@
                 }
             }
         },
-        "default_create_dashboard": "admin.edit",
-        "default_edit_dashboard": "admin.edit",
-        "default_collection_dashboard": "admin.table"
+
+        "defaultCreateDashboard": "admin.edit",
+        "defaultEditDashboard": "admin.edit",
+        "defaultCollectionDashboard": "admin.table"
     }
 }

@@ -4,14 +4,14 @@
             "table": "charcoal_search_logs"
         }
     },
-    "default_source": "default",
+    "defaultSource": "default",
 
     "properties": {
         "id": {
             "type": "id",
             "label": "ID"
         },
-        "search_ident": {
+        "searchIdent": {
             "type": "string",
             "label": {
                 "en": "Identifier",
@@ -32,7 +32,7 @@
                 "fr": "Options de recherche"
             }
         },
-        "num_results": {
+        "numResults": {
             "type": "integer",
             "label": {
                 "en": "Number of Results",
