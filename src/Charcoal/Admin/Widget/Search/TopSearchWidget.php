@@ -27,8 +27,7 @@ class TopSearchWidget extends AbstractSearchHistoryWidget
         SELECT
             `keyword`,
             COUNT(`keyword`) as num_searches,
-            num_results,
-            ts
+            SUM(`num_results`) as num_results
         FROM
             `'.$table.'`
         WHERE
