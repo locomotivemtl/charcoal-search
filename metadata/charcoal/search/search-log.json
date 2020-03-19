@@ -58,6 +58,7 @@
                     "fr": "Recherches",
                     "en": "Searches"
                 },
+                "show_header": false,
                 "layout": {
                     "structure": [
                         { "columns": [ 1, 1 ] },
@@ -93,7 +94,8 @@
                                     "label": "Export"
                                 }
                             }
-                        }
+                        },
+                        "show_object_actions": false
                     }
                 }
             }
