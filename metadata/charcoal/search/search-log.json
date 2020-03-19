@@ -94,7 +94,8 @@
                                     "label": "Export"
                                 }
                             }
-                        }
+                        },
+                        "show_object_actions": false
                     }
                 }
             }
