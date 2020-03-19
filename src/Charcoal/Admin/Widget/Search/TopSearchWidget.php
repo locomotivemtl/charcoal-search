@@ -23,14 +23,14 @@ class TopSearchWidget extends AbstractSearchHistoryWidget
         $source = $proto->source();
         $table  = $source->table();
 
-        $q = '
+        $q = strtr('
         SELECT
             `keyword`,
             COUNT(`keyword`) as num_searches,
             SUM(`num_results`) as num_results,
             MAX(ts) as ts
         FROM
-            `'.$table.'`
+            `%table`
         WHERE
             `ts` > :start
         AND
@@ -42,7 +42,9 @@ class TopSearchWidget extends AbstractSearchHistoryWidget
             num_results DESC
         LIMIT
             20
-        ';
+        ', [
+            '%table' => $table
+        ]);
 
         $sth = $source->dbQuery($q, [
             'start' => $this->startDate()->format('Y-m-d H:i:s'),
