@@ -3,10 +3,10 @@
         "export": {
             "default": {
                 "properties": [
-                    "search_ident",
+                    "searchIdent",
                     "ts",
                     "keyword",
-                    "num_results"
+                    "numResults"
                 ],
                 "orders": [
                     {
@@ -25,10 +25,10 @@
         "lists": {
             "default": {
                 "properties": [
-                    "search_ident",
+                    "searchIdent",
                     "ts",
                     "keyword",
-                    "num_results"
+                    "numResults"
                 ],
                 "orders": [
                     {
