@@ -158,10 +158,10 @@ class SearchRunner implements SearchRunnerInterface, LoggerAwareInterface
 
         foreach ($searchObjects as $searchIdent => $searchObj) {
             if ($searchObj instanceof SearchInterface) {
-                $results = $searchObj->search($keyword, $searchObjects);
+                $results = $searchObj->search($keyword, $searchOptions);
             } else {
                 $search  = new CustomSearch(array_merge($searchObj, $searchDeps));
-                $results = $search->search($keyword, $searchObjects);
+                $results = $search->search($keyword, $searchOptions);
             }
 
             $this->results[$searchIdent] = $results;
